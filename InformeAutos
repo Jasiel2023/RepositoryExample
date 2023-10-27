@@ -1,0 +1,80 @@
+/**
+ * @file Autos.c
+ * @author Wilmer Pardo
+ * @brief 
+ * @version 0.1
+ * @date 2023-07-22
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SUELDO 2500
+#define UTILIDAD 5
+#define COMISION 250
+#define LETRAVERDEL "\033[92m"
+#define LETRADEFAULT "\033[0m"
+
+struct Informe
+{
+    int autosVendidos, valorPorAuto, sueldoTotal, totalVentas, utilidad;
+};
+
+int main()
+{
+    int i, aux;
+    struct Informe informe;
+    char opcion;
+    informe.autosVendidos = 0;
+    informe.totalVentas = 0;
+    informe.sueldoTotal = SUELDO;     
+    aux = SUELDO;
+    do
+    {   
+        printf("Ingrese el valor del auto:\n");
+        scanf("%d", &informe.valorPorAuto);
+        if (informe.valorPorAuto > 10000)
+        {
+            informe.sueldoTotal = informe.sueldoTotal + COMISION;
+        }
+        else
+        {
+            aux = SUELDO;
+        }
+        informe.totalVentas = informe.totalVentas + informe.valorPorAuto;
+        informe.autosVendidos++;
+        printf("%sSi desea Ingresar otro valor precione [S/s] caso contrario presione cualquier tecla:%s\n", LETRAVERDEL, LETRADEFAULT);
+        getchar();
+        scanf("%c", &opcion);
+    }   while (opcion == 'S' || opcion == 's');
+         informe.sueldoTotal =  (informe.sueldoTotal + aux) - SUELDO;
+         aux = informe.sueldoTotal;
+         informe.utilidad = (informe.totalVentas * UTILIDAD) / 100;
+         informe.sueldoTotal = informe.sueldoTotal + informe.utilidad;
+         printf("\t\t\t\t%sInforme del Empleado%s\n", LETRAVERDEL, LETRADEFAULT);
+         printf("===============================================================================================\n");
+         printf("\t\tNumero Total de Autos Vendidos \t\t=====> %s %d %s\n", LETRAVERDEL, informe.autosVendidos, LETRADEFAULT);
+         printf("\t\tTotal de Dinero por los Autos Vendidos \t=====> %s %d %s\n", LETRAVERDEL, informe.totalVentas, LETRADEFAULT);
+         printf("\t\tSueldo Mensual \t\t\t\t=====> %s %d %s\n", LETRAVERDEL, SUELDO, LETRADEFAULT);
+         printf("\t\tUtilidad %d%%  \t\t\t\t=====> %s %d %s\n", UTILIDAD, LETRAVERDEL, informe.utilidad, LETRADEFAULT);
+         i = 0;
+        while (i < informe.autosVendidos )
+        {
+            if (aux > 2500)
+            {
+                printf("\t\tComision por auto vendido \t\t=====> %s 250 %s\n", LETRAVERDEL, LETRADEFAULT);
+                 aux = aux - 250;
+            }
+            else
+            {
+              printf("\t\tComision por auto vendido \t\t=====> %s 0%s\n", LETRAVERDEL, LETRADEFAULT);
+            }
+            i++;
+        }
+        printf("\t\tSueldo a Pagar \t\t\t\t=====> %s %d %s\n",LETRAVERDEL, informe.sueldoTotal, LETRADEFAULT);
+        printf("=================================================================================================\n");
+}
